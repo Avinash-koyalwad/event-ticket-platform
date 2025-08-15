@@ -1,7 +1,6 @@
-package com.event.tickets.entity.dto;
+package com.event.tickets.entity;
 
 import com.event.tickets.entity.enums.EventStatusEnum;
-import com.event.tickets.entity.modal.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.event.tickets.service;
 
-import com.event.tickets.entity.dto.CreateEventRequest;
+import com.event.tickets.entity.CreateEventRequest;
 import com.event.tickets.entity.modal.Event;
 
 import java.util.UUID;

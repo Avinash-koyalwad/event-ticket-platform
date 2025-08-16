@@ -13,6 +13,27 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(QrCodeNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleQrCodeNotFoundException(QrCodeNotFoundException e) {
+        log.error("QR Code not found: {}", e.getMessage(), e);
+        ErrorDto errorDto = new ErrorDto("QR Code not found: " + e.getMessage());
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TicketSoldOutException.class)
+    public ResponseEntity<ErrorDto> handleTicketSoldOutException(TicketSoldOutException e) {
+        log.error("Ticket sold out: {}", e.getMessage(), e);
+        ErrorDto errorDto = new ErrorDto("Ticket sold out: " + e.getMessage());
+        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(QrCodeGenerationException.class)
+    public ResponseEntity<ErrorDto> handleQrCodeGenerationException(QrCodeGenerationException e) {
+        log.error("QR Code generation error: {}", e.getMessage(), e);
+        ErrorDto errorDto = new ErrorDto("QR Code generation error: " + e.getMessage());
+        return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(EventNotFoundException.class)
     public ResponseEntity<ErrorDto> handleEventNotFoundException(EventNotFoundException e) {
         log.error("Event not found: {}", e.getMessage(), e);

@@ -4,6 +4,7 @@ import com.event.tickets.entity.CreateEventRequest;
 import com.event.tickets.entity.UpdateEventRequest;
 import com.event.tickets.entity.UpdateTicketTypeRequest;
 import com.event.tickets.entity.dto.GetEventDetailsResponseDto;
+import com.event.tickets.entity.enums.EventStatusEnum;
 import com.event.tickets.entity.modal.Event;
 import com.event.tickets.entity.modal.TicketType;
 import com.event.tickets.entity.modal.User;
@@ -148,4 +149,20 @@ public class EventServiceImpl implements EventService {
 
 
     }
+
+    @Override
+    public void deleteEventForOrganizer(UUID organizerId, UUID eventId) {
+        getEventByIdAndOrganizerId(organizerId, eventId).ifPresent(eventRepository::delete);
+    }
+
+    @Override
+    public Page<Event> listEvents(Pageable pageable) {
+        return eventRepository.findByStatus(EventStatusEnum.PUBLISHED, pageable);
+    }
+
+    @Override
+    public Optional<Event> getPublishedEventById(UUID eventId) {
+        return eventRepository.findByIdAndStatus(eventId, EventStatusEnum.PUBLISHED);
+    }
+
 }

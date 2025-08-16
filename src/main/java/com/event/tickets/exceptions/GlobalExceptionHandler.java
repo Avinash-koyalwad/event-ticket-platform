@@ -13,6 +13,27 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleEventNotFoundException(EventNotFoundException e) {
+        log.error("Event not found: {}", e.getMessage(), e);
+        ErrorDto errorDto = new ErrorDto("Event not found: " + e.getMessage());
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EventUpdateException.class)
+    public ResponseEntity<ErrorDto> handleEventUpdateException(EventUpdateException e) {
+        log.error("Event update error: {}", e.getMessage(), e);
+        ErrorDto errorDto = new ErrorDto("Event update error: " + e.getMessage());
+        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TicketTypeNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleTicketTypeNotFoundException(TicketTypeNotFoundException e) {
+        log.error("Ticket type not found: {}", e.getMessage(), e);
+        ErrorDto errorDto = new ErrorDto("Ticket type not found: " + e.getMessage());
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorDto> handleUserNotFoundException(UserNotFoundException e) {
         log.error("User not found: {}", e.getMessage(), e);
